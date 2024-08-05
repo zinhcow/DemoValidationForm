@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Signup</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="signup">
+      <h1 class="signup-heading">Sign up</h1>
+      <button class="signup-social">
+        <i class="fa fa-google signup-social-icon"></i>
+        <span class="signup-social-text">Sign up with Google</span>
+      </button>    
+      <div class="signup-or"><span>Or</span></div>
+
+      <form action="#" method="POST" class="signup-form" id="form-signup">
+   
+        <div class="form-group">
+          <label for="fullname" class="form-label">Full name</label>
+          <input id="fullname" class="form-input" name="fullname" type="text" placeholder="Eg: Cơ Quách" >
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input id="email" class="form-input" name="email" type="text" placeholder="Eg: qvc@gmail.com" >
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input id="password" class="form-input" name="password" type="password" placeholder="Enter password" >
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password_confirmation" class="form-label">Confirm password</label>
+          <input id="password_confirmation" class="form-input" name="password_confirmation" placeholder="Confirm password" type="password" >
+          <span class="form-message"></span>
+        </div>
+      
+        <div class="form-group">
+          <label for="gender_confirmation" class="form-label">Gender</label>
+          <div class="form-gender">
+            <div form-gender__section>
+              <span class="gender-name">Male</span>
+              <input  class="form-input" name="gender" type="radio" value="male" >               
+            </div>
+            <div form-gender__section>
+              <span class="gender-name">Female</span>
+              <input  class="form-input" name="gender" type="radio" value="female" >               
+            </div>
+            <div form-gender__section>
+              <span class="gender-name">Other</span>
+              <input  class="form-input" name="gender" type="radio" value="other" >               
+            </div>
+          </div>
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="province" class="form-label">Province/City</label>
+          <select name="" id="province" class="form-input">
+            <option value="">-- Select Province/City --</option>
+            <option value="ag">An Giang</option>
+            <option value="hn">Hà Nội</option>
+            <option value="hcm">TP Hồ Chí Minh</option>
+            <option value="dn">Đà nẵng</option>
+          </select>
+          <span class="form-message"></span>
+        </div>
+
+        <button class="form-submit">Submit</button>
+      </form>
+      <p class="signup-already">
+        <span>Already have an account ?</span>
+        <a href="#" class="signup-login-link">Login</a>
+      </p>
+    </div>
+    <script src="./validator.js"></script>
+    <script>
+        // Mong muốn của chúng ta trong tương lai
+        validator(
+            {
+                form: '#form-signup',
+                formGroupSelector: '.form-group',
+                message: '.form-message',
+                rules: [
+                    validator.isRequired('#fullname', 'Please fill with your full name'),
+                    validator.isRequired('#email'),
+                    validator.isEmail('#email'),
+                    validator.minLength('#password', 8),
+                    validator.isRequired('#password_confirmation'),
+                    validator.isRequired('input[name="gender"]'),
+                    validator.isRequired('#province'),
+                    validator.isConfirmed('#password_confirmation', function(){
+                        return document.querySelector('#form-signup #password').value
+                    }, 'Password is not correct'),
+                    
+                ],
+                onSubmit: function(data){
+                  console.log(data)
+                }
+            }
+        )
+    </script>
+  </body>
+</html>
