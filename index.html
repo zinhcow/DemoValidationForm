@@ -8,19 +8,16 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <title>Signup</title>
+    <title>Validation Form</title>
     <link rel="stylesheet" href="./reset.css" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   </head>
   <body>
     <div class="signup">
-      <h1 class="signup-heading">Sign up</h1>
+      <h1 class="heading">Sign up</h1>
       <button class="signup-social">
-        <i class="fa fa-google signup-social-icon"></i>
+        <div class="signup-social-icon"><i class="fa-brands fa-google"></i></div>
         <span class="signup-social-text">Sign up with Google</span>
       </button>    
       <div class="signup-or"><span>Or</span></div>
@@ -35,19 +32,32 @@
 
         <div class="form-group">
           <label for="email" class="form-label">Email</label>
-          <input id="email" class="form-input" name="email" type="text" placeholder="Eg: qvc@gmail.com" >
+          <input id="email_signup" class="form-input" name="email" type="text" placeholder="Eg: qvc@gmail.com" >
           <span class="form-message"></span>
         </div>
 
         <div class="form-group">
           <label for="password" class="form-label">Password</label>
-          <input id="password" class="form-input" name="password" type="password" placeholder="Enter password" >
+          <div class="section-password">
+            <input id="password" class="form-input" name="password" placeholder="Enter password" type="password" >
+            <div tabindex="0" class="visibility-password">
+              <i class="fa-regular fa-eye icon-open-eye"></i>
+              <i class="fa-regular fa-eye-slash icon-close-eye"></i>
+            </div>
+          </div>
+          
           <span class="form-message"></span>
         </div>
 
         <div class="form-group">
           <label for="password_confirmation" class="form-label">Confirm password</label>
-          <input id="password_confirmation" class="form-input" name="password_confirmation" placeholder="Confirm password" type="password" >
+          <div class="section-password">
+            <input id="password_confirmation_signup" class="form-input" name="password_confirmation" placeholder="Confirm password" type="password" >
+            <div tabindex="0" class="visibility-password">
+              <i class="fa-regular fa-eye icon-open-eye"></i>
+              <i class="fa-regular fa-eye-slash icon-close-eye"></i>
+            </div>
+          </div>
           <span class="form-message"></span>
         </div>
       
@@ -86,8 +96,40 @@
       </form>
       <p class="signup-already">
         <span>Already have an account ?</span>
-        <a href="#" class="signup-login-link">Login</a>
+        <a href="#" class="form-link">Login</a>
       </p>
+    </div>
+    <div class="login">
+        <h1 class="heading">Login</h1>
+        <form action="#" method="POST" class="signup-form" id="form-login">
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input id="email_login" class="form-input" name="email" type="text" placeholder="Eg: qvc@gmail.com" >
+            <span class="form-message"></span>
+          </div>
+  
+  
+          <div class="form-group">
+            <label for="password_confirmation" class="form-label">Password</label>
+            <div class="section-password">
+              <input id="password_confirmation_login" class="form-input" name="password_confirmation" placeholder="Confirm password" type="password" >
+              <div  tabindex="0" class="visibility-password">
+                <i class="fa-regular fa-eye icon-open-eye"></i>
+                <i class="fa-regular fa-eye-slash icon-close-eye"></i>
+              </div>
+            </div>
+            <span class="form-message"></span>
+          </div>
+        
+          
+          <button class="form-submit">Submit</button>
+        </form>
+        <p class="signup-already">
+          <span>First in there ?</span>
+          <a href="#" class="form-link">Sign up</a>
+        </p>
+      </div>
     </div>
     <script src="./validator.js"></script>
     <script>
@@ -99,13 +141,13 @@
                 message: '.form-message',
                 rules: [
                     validator.isRequired('#fullname', 'Please fill with your full name'),
-                    validator.isRequired('#email'),
-                    validator.isEmail('#email'),
+                    validator.isRequired('#email_signup'),
+                    validator.isEmail('#email_signup'),
                     validator.minLength('#password', 8),
-                    validator.isRequired('#password_confirmation'),
+                    validator.isRequired('#password_confirmation_signup'),
                     validator.isRequired('input[name="gender"]'),
                     validator.isRequired('#province'),
-                    validator.isConfirmed('#password_confirmation', function(){
+                    validator.isConfirmed('#password_confirmation_signup', function(){
                         return document.querySelector('#form-signup #password').value
                     }, 'Password is not correct'),
                     
@@ -115,6 +157,82 @@
                 }
             }
         )
+        validator({
+          form: '#form-login',
+            formGroupSelector: '.form-group',
+            message: '.form-message',
+            rules: [
+                validator.isRequired('#email_login'),
+                validator.isEmail('#email_login'),
+                validator.isRequired('#password_confirmation_login'),
+                validator.isConfirmed('#password_confirmation_login', function(){
+                        return document.querySelector('#form-signup #password').value
+                    }, 'Password is not correct'),
+            ],
+            onSubmit: function(data){
+              console.log(data)
+            }
+        })
+        const onSignUp = document.querySelector('.login .form-link')
+        onSignUp.addEventListener('click', function(e){
+            e.preventDefault()
+            document.querySelector('.signup').style.display = 'block'
+            document.querySelector('.login').style.display = 'none'
+        })
+        const onLogin = document.querySelector('.signup .form-link')
+        onLogin.addEventListener('click', function(e){
+
+            e.preventDefault()
+            document.querySelector('.signup').style.display = 'none'
+            document.querySelector('.login').style.display = 'block'
+        })
+        const inputPassword = document.querySelectorAll('input[type="password"]')
+        const buttonPassword = document.querySelectorAll('.section-password .visibility-password')
+        Array.from(inputPassword).forEach((select)=>{
+          const visibilityIcon = select.nextElementSibling
+         
+          select.addEventListener('focus', function(event) {
+           
+          if(visibilityIcon){
+
+            visibilityIcon.style.display = 'flex';
+          }
+          
+        });
+
+        select.addEventListener('blur', function(event) {
+          
+          if(!event.relatedTarget || !event.relatedTarget.matches('.visibility-password')){
+            if(visibilityIcon){
+              visibilityIcon.style.display = 'none';
+            }
+          }
+        });
+  
+      })
+        
+        Array.from(buttonPassword).forEach((select)=>{
+          
+          select.addEventListener('click', function() {
+              
+              const openEyeIcon = select.querySelector('.icon-open-eye');
+              const closeEyeIcon = select.querySelector('.icon-close-eye');
+              const passwordInput = select.previousElementSibling;
+
+              if(closeEyeIcon.style.display === "block"){
+                closeEyeIcon.style.display = "none"
+                openEyeIcon.style.display = "block"
+                passwordInput.type = "text"
+              }
+              else{
+                closeEyeIcon.style.display = "block"
+                openEyeIcon.style.display = "none"
+                passwordInput.type = "password"
+              }
+          })
+          })
+        
+        
     </script>
   </body>
 </html>

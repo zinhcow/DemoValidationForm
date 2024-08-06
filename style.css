@@ -14,14 +14,16 @@ html {
     justify-content: center;
     padding: 100px 0;
   }
-  .signup {
+  /* signup form */
+  .signup{
     padding: 90px 75px;
     background-color: #fff;
     width: 100%;
     max-width: 600px;
     border-radius: 30px;
+    display: none;
   }
-  .signup-heading {
+  .heading {
     font-size: 40px;
     font-weight: bold;
     color: #373941;
@@ -44,6 +46,7 @@ html {
     cursor: pointer;
     outline: none;
     box-shadow: 0 5px 10px 0 rgba(76, 111, 244, 0.5);
+    text-align: center;
   }
   .signup-social-icon {
     width: 60px;
@@ -113,6 +116,7 @@ html {
     font-family: "Poppins", sans-serif;
     font-size: 18px;
     margin-bottom: 10px;
+    text-overflow: ellipsis;
   }
   .form-input::-webkit-input-placeholder {
     color: #b4bac0;
@@ -148,7 +152,7 @@ html {
     font-size: 16px;
     color: #999;
   }
-  .signup-login-link {
+  .form-link {
     color: #2979ff;
     text-decoration: none;
   }
@@ -167,7 +171,6 @@ html {
   align-items: center;
   justify-content: space-between;
   color: #999;
-
 }
 .form-gender__section{
   display: flex;
@@ -201,5 +204,38 @@ html {
   background-position-x: 96%;
   background-position-y: 50%;
   background-color: #f2f3f5;
-  color: #b4bac0
+  color: #b4bac0;
+  cursor: pointer;
+}
+/*login form */
+.login{
+  padding: 90px 75px;
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 30px;
+  
+}
+.form-group .section-password{
+  position: relative;
+}
+.form-group .section-password .visibility-password{
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  top: 7%;
+  right: 0;
+  font-size: 18px ;
+  color: #999;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.form-group .section-password .visibility-password .icon-open-eye{
+  display: none;
+}
+.form-group .section-password .visibility-password .icon-close-eye{
+  display: block;
 }
